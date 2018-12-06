@@ -1,3 +1,47 @@
 # Lab 08 - Object Oriented Design: Java Quotes
 
-In this lab we used the recentquotes.json file (to show random popular book quotes. Your program should use GSON to parse the .json file. The app needs no functionality other than showing the quote and the author when it is run. The app should choose one quote each time it is run.)
+This lab creates an app that prints out a random quote generated from the recentquotes.json file.
+
+## App Description
+
+In order to print out a random quote, we read in the json file with BufferedReader.  From there we use Gson to parse the quotes into a quote array.  The last step is to generate a random index of the array and print the quote, using the ```toAuthorAndTextString()``` method in our Quote class.
+
+
+## Instructions
+
+The app can be run from the command line (without any arguments) to print a random quote from the file.   
+* The gradle command is:
+```gradle run```   
+* It can also be run with the command:
+```java App```
+
+
+## Quote Class Description
+
+The Quote class is made up of the following fields:   
+```
+private String text;
+private String[] tags;
+private String author;
+private String likes;
+```   
+The Quote class has a constructor, getters for all the fields, and:    
+```public String toAuthorAndTextString()```   
+which returns a String formatted for printing.
+
+       
+## Testing
+
+We utilized JUnit testing to test every method in the Quote class, and make sure we were generating an approximately normal distribution of indexes with our getRandomQuote() method.
+
+
+## Dependencies
+
+* [Gson](https://github.com/google/gson)    
+
+To install Gson, copy the following code into your dependencies:   
+```
+dependencies {
+       implementation 'com.google.code.gson:gson:2.8.5'
+}
+```
