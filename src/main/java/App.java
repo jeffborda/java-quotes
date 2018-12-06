@@ -14,12 +14,7 @@ import java.util.Random;
  */
 public class App {
 
-
     private static Quote[] quotes;
-
-    public static void readIn() {
-
-    }
 
     public static void main(String[] args) {
 
@@ -39,7 +34,7 @@ public class App {
        System.out.println(getRandomQuote());
     }
 
-    private static String getRandomQuote() {
+    protected static String getRandomQuote() {
         Random r = new Random();
         return quotes[r.nextInt(quotes.length - 1)].toAuthorAndTextString();
     }
