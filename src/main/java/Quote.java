@@ -1,9 +1,11 @@
-public class Quotes {
+public class Quote {
 
-    String quoteText;
+    String text;
     String[] tags;
     String author;
-    int likes;
+    String likes;
+
+
 
 
 
