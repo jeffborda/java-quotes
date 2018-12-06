@@ -9,8 +9,11 @@ In order to print out a random quote, we read in the json file with BufferedRead
 
 ## Instructions
 
-The app can be run from the command line (without any arguments) to print a random quote from the file.  The gradle command is:   
-```gradle run```
+The app can be run from the command line (without any arguments) to print a random quote from the file.   
+* The gradle command is:
+```gradle run```   
+* It can also be run with the command:
+```java App```
 
 
 ## Quote Class Description
@@ -22,7 +25,9 @@ private String[] tags;
 private String author;
 private String likes;
 ```   
-The Quote class has a constructor, a ```getText()``` function to return a quote, and ```public String toAuthorAndTextString()``` which returns a String formatted for printing.
+The Quote class has a constructor, getters for all the fields, and:    
+```public String toAuthorAndTextString()```   
+which returns a String formatted for printing.
 
        
 ## Testing
@@ -32,4 +37,11 @@ We utilized JUnit testing to test every method in the Quote class, and make sure
 
 ## Dependencies
 
-* [Gson](https://github.com/google/gson)
+* [Gson](https://github.com/google/gson)    
+
+To install Gson, copy the following code into your dependencies:   
+```
+dependencies {
+       implementation 'com.google.code.gson:gson:2.8.5'
+}
+```
