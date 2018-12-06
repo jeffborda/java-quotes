@@ -31,10 +31,10 @@ public class App {
         quotes = gson.fromJson(br, Quote[].class);
         System.out.println();
 
-       System.out.println(getRandomQuote());
+       System.out.println(getRandomQuote(quotes));
     }
 
-    protected static String getRandomQuote() {
+    protected static String getRandomQuote(Quote[] quotes) {
         Random r = new Random();
         return quotes[r.nextInt(quotes.length)].toAuthorAndTextString();
     }
