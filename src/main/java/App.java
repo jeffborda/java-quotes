@@ -6,6 +6,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /*
@@ -35,7 +36,11 @@ public class App {
         quotes = gson.fromJson(br, Quote[].class);
         System.out.println();
 
-        //Call the readIn method
-        //Then call printRandom method
+       System.out.println(getRandomQuote());
+    }
+
+    private static String getRandomQuote() {
+        Random r = new Random();
+        return quotes[r.nextInt(quotes.length - 1)].toAuthorAndTextString();
     }
 }

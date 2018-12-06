@@ -1,18 +1,11 @@
 public class Quote {
 
-    String text;
-    String[] tags;
-    String author;
-    String likes;
+    private String text;
+    private String[] tags;
+    private String author;
+    private String likes;
 
-
-
-
-
-    @Override
-    public String toString() {
-
-        return null;
+    public String toAuthorAndTextString() {
+        return text + " - " + author;
     }
-
 }
