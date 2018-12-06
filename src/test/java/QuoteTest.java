@@ -15,7 +15,7 @@ public class QuoteTest {
         assertEquals("Confirm fields set correctly in the constructor.", "Quote1 text.", testQuote1.getText());
         assertArrayEquals("Confirm fields set correctly in the constructor.", new String[] {"esoteric", "test", "tags"}, testQuote1.getTags());
         assertEquals("Confirm fields set correctly in the constructor.", "Billy Bob", testQuote1.getAuthor());
-        assertEquals("Confirm fields set correctly in the constructor.", "10 likes.", testQuote1.getLikes());
+        assertEquals("Confirm fields set correctly in the constructor.", "10 likes", testQuote1.getLikes());
     }
 
     @Test
