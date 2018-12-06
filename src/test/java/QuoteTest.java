@@ -8,6 +8,67 @@ import static org.junit.Assert.*;
 public class QuoteTest {
 
     @Test
+    public void testQuoteConstructor() {
+        //public Quote(String text, String[] tags, String author, String likes)
+        Quote testQuote1 = new Quote("Quote1 text.", new String[] {"esoteric", "test", "tags"}, "Billy Bob", "10 likes");
+
+        assertEquals("Confirm fields set correctly in the constructor.", "Quote1 text.", testQuote1.getText());
+        assertArrayEquals("Confirm fields set correctly in the constructor.", new String[] {"esoteric", "test", "tags"}, testQuote1.getTags());
+        assertEquals("Confirm fields set correctly in the constructor.", "Billy Bob", testQuote1.getAuthor());
+        assertEquals("Confirm fields set correctly in the constructor.", "10 likes.", testQuote1.getLikes());
+    }
+
+    @Test
+    public void testToAuthorAndTextString() {
+        Quote testQuote1 = new Quote("Quote1 text.", new String[] {"esoteric", "test", "tags"}, "Billy Bob", "10 likes");
+        Quote testQuote2 = new Quote("Hello world.", new String[] {"computers", "magic", "electricity"}, "Sue Ellen", "50 likes");
+        Quote testQuote3 = new Quote("I like cats.", new String[] {"pets", "kitties", "meow", "fur"}, "Benicio", "1 like");
+        assertEquals("Confirm String formatted correctly", "Quote1 text. - Billy Bob", testQuote1.toAuthorAndTextString());
+        assertEquals("Confirm String formatted correctly", "Hello world. - Sue Ellen", testQuote2.toAuthorAndTextString());
+        assertEquals("Confirm String formatted correctly", "I like cats. - Benicio", testQuote3.toAuthorAndTextString());
+    }
+
+    @Test
+    public void testGetText() {
+        Quote testQuote1 = new Quote("Quote1 text.", new String[] {"esoteric", "test", "tags"}, "Billy Bob", "10 likes");
+        Quote testQuote2 = new Quote("Hello world.", new String[] {"computers", "magic", "electricity"}, "Sue Ellen", "50 likes");
+        Quote testQuote3 = new Quote("I like cats.", new String[] {"pets", "kitties", "meow", "fur"}, "Benicio", "1 like");
+        assertEquals("Confirm the quote is returned.", "Quote1 text.", testQuote1.getText());
+        assertEquals("Confirm the quote is returned.", "Hello world.", testQuote2.getText());
+        assertEquals("Confirm the quote is returned.", "I like cats.", testQuote3.getText());
+    }
+
+    @Test
+    public void testGetTags() {
+        Quote testQuote1 = new Quote("Quote1 text.", new String[] {"esoteric", "test", "tags"}, "Billy Bob", "10 likes");
+        Quote testQuote2 = new Quote("Hello world.", new String[] {"computers", "magic", "electricity"}, "Sue Ellen", "50 likes");
+        Quote testQuote3 = new Quote("I like cats.", new String[] {"pets", "kitties", "meow", "fur"}, "Benicio", "1 like");
+        assertArrayEquals("Confirm the tags array is returned.", new String[] {"esoteric", "test", "tags"}, testQuote1.getTags());
+        assertArrayEquals("Confirm the tags array is returned.", new String[] {"computers", "magic", "electricity"}, testQuote2.getTags());
+        assertArrayEquals("Confirm the tags array is returned.", new String[] {"pets", "kitties", "meow", "fur"}, testQuote3.getTags());
+    }
+
+    @Test
+    public void testGetAuthor() {
+        Quote testQuote1 = new Quote("Quote1 text.", new String[] {"esoteric", "test", "tags"}, "Billy Bob", "10 likes");
+        Quote testQuote2 = new Quote("Hello world.", new String[] {"computers", "magic", "electricity"}, "Sue Ellen", "50 likes");
+        Quote testQuote3 = new Quote("I like cats.", new String[] {"pets", "kitties", "meow", "fur"}, "Benicio", "1 like");
+        assertEquals("Confirm author's name is returned.", "Billy Bob", testQuote1.getAuthor());
+        assertEquals("Confirm author's name is returned.", "Sue Ellen", testQuote2.getAuthor());
+        assertEquals("Confirm author's name is returned.", "Benicio", testQuote3.getAuthor());
+    }
+
+    @Test
+    public void testGetLikes() {
+        Quote testQuote1 = new Quote("Quote1 text.", new String[] {"esoteric", "test", "tags"}, "Billy Bob", "10 likes");
+        Quote testQuote2 = new Quote("Hello world.", new String[] {"computers", "magic", "electricity"}, "Sue Ellen", "50 likes");
+        Quote testQuote3 = new Quote("I like cats.", new String[] {"pets", "kitties", "meow", "fur"}, "Benicio", "1 like");
+        assertEquals("Confirm author's name is returned.", "10 likes", testQuote1.getLikes());
+        assertEquals("Confirm author's name is returned.", "50 likes", testQuote2.getLikes());
+        assertEquals("Confirm author's name is returned.", "1 like", testQuote3.getLikes());
+    }
+
+    @Test
     public void testRandomQuoteGeneratorDistribution() {
         Quote[] quotes = createQuoteArray();
         int sum = 0;
@@ -35,7 +96,7 @@ public class QuoteTest {
 
     private static int findIndex(String quoteString, Quote[] quotes) {
         for (int i=0; i<quotes.length; i++) {
-            if (quoteString.equals(quotes[i].getText())) {
+            if (quoteString.equals(quotes[i].toAuthorAndTextString())) {
                 return i;
             }
         }

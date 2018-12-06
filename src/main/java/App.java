@@ -36,6 +36,6 @@ public class App {
 
     protected static String getRandomQuote() {
         Random r = new Random();
-        return quotes[r.nextInt(quotes.length - 1)].toAuthorAndTextString();
+        return quotes[r.nextInt(quotes.length)].toAuthorAndTextString();
     }
 }

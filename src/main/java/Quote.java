@@ -19,4 +19,16 @@ public class Quote {
     public String getText() {
         return text;
     }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getLikes() {
+        return likes;
+    }
 }

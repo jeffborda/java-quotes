@@ -27,7 +27,7 @@ The Quote class has a constructor, a ```getText()``` function to return a quote,
        
 ## Testing
 
-We utilized JUnit testing to make sure we were generating an approximately normal distribution of indexes with our getRandomQuote() method.
+We utilized JUnit testing to test every method in the Quote class, and make sure we were generating an approximately normal distribution of indexes with our getRandomQuote() method.
 
 
 ## Dependencies
