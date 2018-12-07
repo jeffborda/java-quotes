@@ -18,7 +18,6 @@ import java.util.Random;
  */
 public class App {
 
-//    private static Quote[] quotes;
     private static ArrayList<Quote> quoteArrayList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -46,7 +45,6 @@ public class App {
             // Print the Ron Swanson quote
             System.out.println(ronQuote.toAuthorAndTextString());
 
-
             br.close();
 
         } catch (MalformedURLException e) {
@@ -56,12 +54,23 @@ public class App {
             printQuoteFromFile();
         }
 
-        BufferedWriter bw = null;
+
+        // Save the arrayList of quotes to a file again, adding Ron Swanson quote
         FileWriter fw = null;
 
-        fw = new FileWriter(outputPath);
+        try {
+            Gson gson = new Gson();
+            fw = new FileWriter(outputPath.toString());
+            Type typeOf = new TypeToken<ArrayList<Quote>>(){}.getType();
+            gson.toJson(quoteArrayList,typeOf);
+            fw.write(gson.toJson(quoteArrayList, typeOf));
+            fw.close();
 
-        printQuoteFromFile();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     protected static String getRandomQuote(Quote[] quotes) {
@@ -75,7 +84,6 @@ public class App {
     }
 
     protected static void printQuoteFromFile() {
-//        Quote[] quotes;
 
         BufferedReader br = null;
         Path inputPath = FileSystems.getDefault().getPath("assets/recentquotes.json");
@@ -89,10 +97,10 @@ public class App {
 
         Type typeOf = new TypeToken<ArrayList<Quote>>(){}.getType();
         quoteArrayList = gson.fromJson(br, typeOf);
-        //quotes = gson.fromJson(br, Quote[].class);
 
         System.out.println();
         System.out.println(getRandomQuote(quoteArrayList));
-//        System.out.println(getRandomQuote(quotes));
     }
+
+
 }
