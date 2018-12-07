@@ -12,6 +12,12 @@ public class Quote {
         this.likes = likes;
     }
 
+    // Only for saving Ron Swanson quotes
+    public Quote(String text) {
+        this.text = text;
+        this.author = "Ron Swanson";
+    }
+
     public String toAuthorAndTextString() {
         return text + " - " + author;
     }
