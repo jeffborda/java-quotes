@@ -1,10 +1,15 @@
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -13,9 +18,64 @@ import java.util.Random;
  */
 public class App {
 
-    private static Quote[] quotes;
+//    private static Quote[] quotes;
+    private static ArrayList<Quote> quoteArrayList = new ArrayList<>();
 
     public static void main(String[] args) {
+
+        Path outputPath = FileSystems.getDefault().getPath("assets/recentquotes.json");
+
+        try {
+            URL url = new URL("http://ron-swanson-quotes.herokuapp.com/v2/quotes");
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while((inputLine = br.readLine()) != null) {
+                content.append(inputLine);
+            }
+
+            // Format content
+            content.delete(0, 1);
+            content.delete(content.length() - 1, content.length());
+            // Convert content to Quote
+            Quote ronQuote = new Quote(content.toString());
+            // Add to arrayList with all quotes
+            quoteArrayList.add(ronQuote);
+            // Print the Ron Swanson quote
+            System.out.println(ronQuote.toAuthorAndTextString());
+
+
+            br.close();
+
+        } catch (MalformedURLException e) {
+            // Print Quote from file for network errors
+            printQuoteFromFile();
+        } catch (IOException e) {
+            printQuoteFromFile();
+        }
+
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+
+        fw = new FileWriter(outputPath);
+
+        printQuoteFromFile();
+    }
+
+    protected static String getRandomQuote(Quote[] quotes) {
+        Random r = new Random();
+        return quotes[r.nextInt(quotes.length)].toAuthorAndTextString();
+    }
+
+    protected static String getRandomQuote(ArrayList<Quote> quotes) {
+        Random r = new Random();
+        return quoteArrayList.get(r.nextInt(quoteArrayList.size())).toAuthorAndTextString();
+    }
+
+    protected static void printQuoteFromFile() {
+//        Quote[] quotes;
 
         BufferedReader br = null;
         Path inputPath = FileSystems.getDefault().getPath("assets/recentquotes.json");
@@ -25,16 +85,14 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         Gson gson = new Gson();
-        quotes = gson.fromJson(br, Quote[].class);
+
+        Type typeOf = new TypeToken<ArrayList<Quote>>(){}.getType();
+        quoteArrayList = gson.fromJson(br, typeOf);
+        //quotes = gson.fromJson(br, Quote[].class);
+
         System.out.println();
-
-       System.out.println(getRandomQuote(quotes));
-    }
-
-    protected static String getRandomQuote(Quote[] quotes) {
-        Random r = new Random();
-        return quotes[r.nextInt(quotes.length)].toAuthorAndTextString();
+        System.out.println(getRandomQuote(quoteArrayList));
+//        System.out.println(getRandomQuote(quotes));
     }
 }
