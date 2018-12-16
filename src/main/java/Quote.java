@@ -1,15 +1,11 @@
 public class Quote {
 
-    private String text;
-    private String[] tags;
     private String author;
-    private String likes;
+    private String text;
 
-    public Quote(String text, String[] tags, String author, String likes) {
-        this.text = text;
-        this.tags = tags;
+    public Quote(String author, String text) {
         this.author = author;
-        this.likes = likes;
+        this.text = text;
     }
 
     // Only for saving Ron Swanson quotes
@@ -22,19 +18,4 @@ public class Quote {
         return text + " - " + author;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public String[] getTags() {
-        return tags;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getLikes() {
-        return likes;
-    }
 }
