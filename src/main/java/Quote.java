@@ -1,11 +1,11 @@
 public class Quote {
 
-    private String author;
-    private String text;
+    public String text;
+    public String author;
 
-    public Quote(String author, String text) {
-        this.author = author;
+    public Quote(String text, String author) {
         this.text = text;
+        this.author = author;
     }
 
     // Only for saving Ron Swanson quotes
@@ -14,7 +14,8 @@ public class Quote {
         this.author = "Ron Swanson";
     }
 
-    public String toAuthorAndTextString() {
+    @Override
+    public String toString() {
         return text + " - " + author;
     }
 

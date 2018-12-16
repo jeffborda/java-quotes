@@ -1,10 +1,8 @@
-# Lab 08 - Object Oriented Design: Java Quotes
+# Java Quotes
 
-This lab creates an app that prints out a random quote generated from the recentquotes.json file.
+This lab creates an app that prints out a random Ron Swanson quote from the internet and then saves it to a JSON file.
 
-## App Description
-
-In order to print out a random quote, we read in the json file with BufferedReader.  From there we use Gson to parse the quotes into a quote array.  The last step is to generate a random index of the array and print the quote, using the ```toAuthorAndTextString()``` method in our Quote class.
+The app also has the capability to print a quote from the JSON file if there is a problem with the internet connection.
 
 
 ## Instructions
@@ -21,13 +19,10 @@ The app can be run from the command line (without any arguments) to print a rand
 The Quote class is made up of the following fields:   
 ```
 private String text;
-private String[] tags;
 private String author;
-private String likes;
 ```   
-The Quote class has a constructor, getters for all the fields, and:    
-```public String toAuthorAndTextString()```   
-which returns a String formatted for printing.
+     
+The method: ```public String toString()``` has been overriden to return a String formatted for printing.
 
        
 ## Testing
@@ -45,3 +40,9 @@ dependencies {
        implementation 'com.google.code.gson:gson:2.8.5'
 }
 ```
+
+## Credits
+
+Credit for the Ron Swanson quote generator:
+
+https://github.com/jamesseanwright/ron-swanson-quotes

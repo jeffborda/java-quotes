@@ -1,28 +1,53 @@
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
-public class FileSystemQuoteGetter implements QuoteGetter {
+public class FileSystemQuoteGetter {
 
-    protected Quote[] quotes;
+    protected ArrayList<Quote> quotes;
     private String quotesPath;
 
-    public FileSystemQuoteGetter(String path) {
+    public FileSystemQuoteGetter(String path) throws IOException {
+
         this.quotesPath = path;
-    }
 
-    @Override
-    public Quote getQuote() {
-        if(quotes == null) {
-            readQuotes();
+        BufferedReader br = Files.newBufferedReader(Paths.get(path));
+        StringBuilder json = new StringBuilder();
+        String inputLine = br.readLine();
+        while(inputLine != null) {
+            json.append(inputLine);
+            inputLine = br.readLine();
         }
-        return getRandomQuote();
+        Gson gson = new Gson();
+
+        Type typeOf = new TypeToken<ArrayList<Quote>>(){}.getType();
+        this.quotes = gson.fromJson(json.toString(), typeOf);
     }
 
-    private Quote getRandomQuote(){
-        return quotes[(int)(Math.random() * quotes.length)];
+
+    public Quote getRandomQuote() {
+        int randomIndex = (int) (Math.random() * quotes.size());
+        return quotes.get(randomIndex);
     }
 
-    private void readQuotes() {
-
+    public void addFileSystemQuote(Quote newQuote) {
+        quotes.add(newQuote);
     }
+
+    public void saveQuotes() throws IOException {
+        FileWriter writer = new FileWriter("assets/recentquotes.json");
+        Gson gson = new Gson();
+        String saveJson = gson.toJson(quotes);
+        writer.write(saveJson);
+        writer.close();
+    }
+
+
 }
