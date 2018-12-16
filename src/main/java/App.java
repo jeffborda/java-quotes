@@ -19,9 +19,19 @@ import java.util.Random;
 public class App {
 
 
-    public static void main(String[] args) {
-        QuoteGetter getter = new WebQuoteGetter();
-        System.out.println(getter.getQuote());
+    public static void main(String[] args) throws IOException {
+        try {
+            WebQuoteGetter ronSwansonQuote = new WebQuoteGetter();
+            FileSystemQuoteGetter fileQuote = new FileSystemQuoteGetter("assets/recentquotes.json");
+            fileQuote.addFileSystemQuote(ronSwansonQuote.getRonQuote());
+            fileQuote.saveQuotes();
+            System.out.println(ronSwansonQuote.getRonQuote());
+        } catch (IOException e) {
+            // If no internet, will print random quote from file.
+            FileSystemQuoteGetter fileQuote = new FileSystemQuoteGetter("assets/recentquotes.json");
+            System.out.println(fileQuote.getRandomQuote());
+        }
+
     }
 
 
